@@ -2,7 +2,8 @@
 
 TESTS=$(find . -maxdepth 1 -type d -name "test*" -printf "%f\n" | sort)
 NAME=$(whoami)
-LOG=/tmp/testing-$NAME-pi-$(date +%F_%T).log
+# LOG=/tmp/testing-$NAME-pi-$(date +%F_%T).log
+LOG=testing-$NAME-pi-$(date +%F_%T).log
 TOTAL=0
 PASSED=0
 
@@ -17,7 +18,7 @@ function verifyTest() {
   TOTAL=$(echo $TOTAL | awk '{ print $1+1 }')
   echo -n Verifying $TESTNAME $T_SUPPORT $T_CONFIDENCE...
 
-  # give 2 minutes
+  # give 3 minutes
   ./timeout.sh 120 make $OUT_FILE -C $TESTNAME >>$LOG 2>&1
 
   RET=$?

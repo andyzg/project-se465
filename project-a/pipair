@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 if [ -z "$1" ]
 then
-    echo "Missing filename"
     exit 1
 fi
 
-echo "compile program"
-javac ABDT.java
-
-echo "create call graph"
 /opt-src/llvm-3.4.2/bin/opt -print-callgraph $1 2>callgraph.txt
 
-echo "run ABDT program now"
 java ABDT callgraph.txt $2 $3
