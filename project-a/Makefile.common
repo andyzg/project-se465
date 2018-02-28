@@ -8,9 +8,11 @@ CXX_SRC=$(wildcard *.cpp)
 C_OBJ=$(C_SRC:.c=.bc)
 CXX_OBJ=$(CXX_SRC:.cpp=.bc)
 
-# Flags for CC and CXX. 
+# Flags for CC and CXX.
 CFLAGS=-g
 CXXFLAGS="$(CFLAGS)"
+
+.PHONY: all
 
 all: $(TARGET) outputs
 

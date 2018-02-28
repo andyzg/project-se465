@@ -2,8 +2,7 @@
 
 TESTS=$(find . -maxdepth 1 -type d -name "test*" -printf "%f\n" | sort)
 NAME=$(whoami)
-# LOG=/tmp/testing-$NAME-pi-$(date +%F_%T).log
-LOG=testing-$NAME-pi-$(date +%F_%T).log
+LOG=/tmp/testing-$NAME-pi-$(date +%F_%T).log
 TOTAL=0
 PASSED=0
 
@@ -33,7 +32,6 @@ function verifyTest() {
   fi
 
   TEST_RESULT="diff <(sort $TESTNAME/$OUT_FILE 2>>$LOG) <(sort $TESTNAME/$GOLD_FILE 2>>$LOG)"
-
   DIFF_COUNT=$(eval $TEST_RESULT | wc -l 2>>$LOG)
   TOTAL_COUNT=$(cat $TESTNAME/$GOLD_FILE 2>>$LOG | wc -l 2>>$LOG)
 

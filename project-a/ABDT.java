@@ -15,11 +15,17 @@ class Bug {
     public Bug(String call, String fname, String p1, String p2) {
         this.call = call;
         this.fname = fname;
-        this.p1 = p1;
-        this.p2 = p2;
+        if (p1.compareTo(p2) < 0) {
+            this.p1 = p1;
+            this.p2 = p2;
+        } else {
+            this.p1 = p2;
+            this.p2 = p1;
+        }
     }
 
     public void print(int support, float confidence) {
+        // TODO: Sort p1 and p2
         System.out.format("bug: %s in %s, pair: (%s, %s), support: %d, confidence: %.2f%%\n",
                 this.call, this.fname, this.p1, this.p2, support, confidence);
     }
@@ -69,15 +75,21 @@ class Function {
                 String fname = lines[i].split("'")[1];
                 cs.put(fname.hashCode(), fname);
             } else if (lines[i].startsWith("CallGraph Root")) {
-                // Is the main program
-                isMain = true;
-            } else if (lines[i].startsWith("Call graph node for")) {
+                // Root, dont use
+                return null;
+            } else if (lines[i].startsWith("Call graph node")) {
+                if (lines[i].startsWith("Call graph node <<null function")) {
+                    return null;
+                }
+
                 // Function header
                 try {
                     cgn = lines[i].split("'")[1];
                     hmap.put(cgn.hashCode(), cgn);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     // Main program
+                    cgn = "null";
+                    hmap.put("null".hashCode(), "null");
                     continue;
                 }
             }
@@ -103,6 +115,8 @@ public class ABDT {
                 confidence = Integer.parseInt(args[2]);
             }
         }
+        // System.out.println("Support: " + Integer.toString(support));
+        // System.out.println("Confidence: " + Integer.toString(confidence));
         String[] s;
         try {
             s = readFile(args[0], StandardCharsets.UTF_8);
@@ -111,8 +125,14 @@ public class ABDT {
             return;
         }
         List<Function> f = new ArrayList<Function>(s.length);
-        for (int i = 1; i < s.length; i++) {
-            f.add(Function.createFunction(s[i], hmap));
+        for (int i = 0; i < s.length; i++) {
+            if (i == 0 && !s[i].startsWith("Call")) {
+                continue;
+            }
+            Function fn = Function.createFunction(s[i], hmap);
+            if (fn != null) {
+                f.add(fn);
+            }
         }
 
         HashMap<Integer, HashMap<Integer, Boolean>> containFunction = new HashMap<Integer, HashMap<Integer, Boolean>>(f.size());
@@ -155,11 +175,11 @@ public class ABDT {
                 }
 
                 float c = (float) match / total * 100;
-                if (match > support &&
-                        c > (float) confidence &&
-                        match != total) {
+                if ((match >= support &&
+                        c >= (float) confidence-0.01 &&
+                        match != total)) {
                     for (int k = 0; k < bugs.size(); k++) {
-                        bugs.get(k).print(support, c);
+                        bugs.get(k).print(match, c);
                     }
                 }
             }
