@@ -182,23 +182,6 @@ public class ABDT {
             }
         }
 
-        // for every nested level of analysis, we push function calls up one call
-        // for (int i = 0; i < nested; i++) {
-        //     for (Integer called : containFunction.keySet()) {
-        //         Set<Integer> grandCallers = new HashSet<>();
-
-        //         for (Integer caller : containFunction.get(called).keySet()) {
-        //             grandCallers.addAll(containFunction.get(caller).keySet());
-        //         }
-
-        //         for (Integer grandCaller : grandCallers) {
-        //             if (grandCaller != called) {
-        //                 containFunction.get(grandCaller).put(called, true);
-        //             }
-        //         }
-        //     }
-        // }
-
         for (Function f1 : functions.values()) {
             for (Function f2 : functions.values()) {
                 if (f1.getName().hashCode() == f2.getName().hashCode()) {
