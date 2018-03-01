@@ -62,6 +62,10 @@ class Function {
         fcalls.putAll(f.getCalls());
     }
 
+    public void dropCalls(Set<Integer> calls) {
+        fcalls.keySet().removeAll(calls);
+    }
+
     static Function createFunction(String s, HashMap<Integer, String> hmap) {
         String[] lines = s.split("\n");
         HashMap<Integer, String> cs = new HashMap<Integer, String>();
@@ -146,7 +150,8 @@ public class ABDT {
         // for every nested level of analysis, expand one level of calls
         for (int i = 0; i < nested; i++) {
             for (Function func : functions.values()) {
-                Set<Integer> calls = func.getCalls().keySet();
+                // make sure we use a deep copy, to drop them later
+                Set<Integer> calls = new HashSet<>(func.getCalls().keySet());
                 Set<Function> toTake = new HashSet<>();
 
                 for (Integer call : calls) {
@@ -156,6 +161,9 @@ public class ABDT {
                 for (Function expanded : toTake) {
                     func.takeCalls(expanded);
                 }
+
+                // now that we have the children, we don't need the original calls anymore
+                func.dropCalls(calls);
             }
         }
 
