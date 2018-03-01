@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+if [ -z "$1" ]
+then
+    exit 1
+fi
+
+/opt-src/llvm-3.0rc4/bin/opt -print-callgraph $1 2>callgraph.txt 1>/dev/null
+cat callgraph.txt | grep 'Unknown bitstream version' &> /dev/null
+if [ $? == 0 ]; then
+    /opt-src/llvm-3.4.2/bin/opt -print-callgraph $1 2>callgraph.txt 1>/dev/null
+fi
+
+java -Xms256m -Xmx2048m ABDT callgraph.txt $2 $3
