@@ -1,0 +1,234 @@
+\documentclass[10pt]{article}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{pgf}
+\usepackage{tabularx}
+\usepackage{multirow}
+
+\topmargin -0.1pt
+\advance \topmargin by -\headheight
+\advance \topmargin by -\headsep
+\textheight 9.2in
+\oddsidemargin -0.1pt
+\evensidemargin \oddsidemargin
+\marginparwidth 0.5in
+\textwidth 6.7in
+
+\parindent 0in
+\parskip 1.5ex
+
+
+% linux
+\newcommand{\linuxloc}{7.3M}
+\newcommand{\linuxfirstdate}{2005-04-16}
+\newcommand{\linuxlastdate}{2010-11-21}
+\newcommand{\linuxchanges}{429K}
+\newcommand{\linuxbr}{14.0\%}
+\newcommand{\linuxstartgap}{3.0}
+\newcommand{\linuxgap}{0.2}
+\newcommand{\linuxtimeoffset}{2.0}
+\newcommand{\linuxexpchanges}{10,443}
+\newcommand{\linuxexpbr}{22.8}
+\newcommand{\linuxTrain}{1,608}
+\newcommand{\linuxTest}{6,864}
+
+% postgresql
+\newcommand{\postgresqlloc}{289K}
+\newcommand{\postgresqlfirstdate}{1996-07-09}
+\newcommand{\postgresqllastdate}{2011-01-25}
+\newcommand{\postgresqlchanges}{89K}
+\newcommand{\postgresqlbr}{23.6\%}
+\newcommand{\postgresqlstartgap}{2.0}
+\newcommand{\postgresqlgap}{1.0}
+\newcommand{\postgresqltimeoffset}{1.0}
+\newcommand{\postgresqlexpchanges}{10,810}
+\newcommand{\postgresqlexpbr}{27.4}
+\newcommand{\postgresqlTrain}{1,232}
+\newcommand{\postgresqlTest}{6,824}
+
+% xorg
+\newcommand{\xorgloc}{1.1M}
+\newcommand{\xorgfirstdate}{1999-11-19}
+\newcommand{\xorglastdate}{2012-06-28}
+\newcommand{\xorgchanges}{46K}
+\newcommand{\xorgbr}{12.9\%}
+\newcommand{\xorgstartgap}{3.0}
+\newcommand{\xorggap}{1.0}
+\newcommand{\xorgtimeoffset}{3.0}
+\newcommand{\xorgexpchanges}{10,956}
+\newcommand{\xorgexpbr}{14.7}
+\newcommand{\xorgTrain}{1,756}
+\newcommand{\xorgTest}{6,710}
+
+% eclipse
+\newcommand{\eclipseloc}{1.5M}
+\newcommand{\eclipsefirstdate}{2001-06-05}
+\newcommand{\eclipselastdate}{2012-07-24}
+\newcommand{\eclipsechanges}{73K}
+\newcommand{\eclipsebr}{16.9\%}
+\newcommand{\eclipsestartgap}{3.0}
+\newcommand{\eclipsegap}{0.5}
+\newcommand{\eclipsetimeoffset}{6.5}
+\newcommand{\eclipseexpchanges}{9,190}
+\newcommand{\eclipseexpbr}{20.5}
+\newcommand{\eclipseTrain}{1,367}
+\newcommand{\eclipseTest}{6,974}
+
+% lucene
+\newcommand{\luceneloc}{828K}
+\newcommand{\lucenefirstdate}{2010-03-17}
+\newcommand{\lucenelastdate}{2013-01-16}
+\newcommand{\lucenechanges}{76K}
+\newcommand{\lucenebr}{9.4\%}
+\newcommand{\lucenestartgap}{0.5}
+\newcommand{\lucenegap}{0.2}
+\newcommand{\lucenetimeoffset}{1.5}
+\newcommand{\luceneexpchanges}{11,106}
+\newcommand{\luceneexpbr}{23.6}
+\newcommand{\luceneTrain}{1,194}
+\newcommand{\luceneTest}{9,333}
+
+% jackrabbit
+\newcommand{\jackrabbitloc}{589K}
+\newcommand{\jackrabbitfirstdate}{2004-09-13}
+\newcommand{\jackrabbitlastdate}{2013-01-14}
+\newcommand{\jackrabbitchanges}{61K}
+\newcommand{\jackrabbitbr}{23.6\%}
+\newcommand{\jackrabbitstartgap}{3.0}
+\newcommand{\jackrabbitgap}{0.2}
+\newcommand{\jackrabbittimeoffset}{3.3}
+\newcommand{\jackrabbitexpchanges}{13,069}
+\newcommand{\jackrabbitexpbr}{37.4}
+\newcommand{\jackrabbitTrain}{1,118}
+\newcommand{\jackrabbitTest}{8,887}
+
+
+\lstset{ %
+language=Java,
+basicstyle=\scriptsize,commentstyle=\scriptsize\itshape,showstringspaces=false,breaklines=true}
+
+
+\begin{document}
+
+\title{
+SE 465 Software Testing, Quality Assurance, and Maintenance\\
+Project/Lab B Detailed Description of Feature Collection, Version 1}
+\author{Instructor: Lin Tan \\
+Lab Instructor: Thibaud Lutellier \\
+Project Lead: Song Wang\\
+Release Date:  March 6, 2018 \\ 
+}
+\renewcommand{\today}{}
+\maketitle
+
+
+\section*{Data for Online Defect Detection Model} 
+
+\begin{table*}[h!t]
+\centering
+\caption{Evaluated projects for change-level defect prediction. 
+\textbf{Lang} is the programming language used for the project.
+\textbf{LOC} is the number of the line of code.
+\textbf{First Date} is the date of the first commit of a project, 
+while \textbf{Last Date} is the date of the latest commit. 
+\textbf{Changes} is the number of changes collected in this work. 
+\textbf{TrSize} is the average size of training data on all runs. 
+\textbf{TSize} is the average size of test data on all runs. 
+\textbf{ABR} is the average buggy rate. 
+\textbf{NR} is the number of runs for each subject.
+}
+
+\begin{tabular}{|l|l|r|r|r|r|r|r|r|r|}
+\hline  Project & Lang & LOC & First Date & Last Date & Changes&TrSize&TSize& ABR (\%) & \# NR\\ \hline
+PostgreSQL      & C     & \postgresqlloc & \postgresqlfirstdate & \postgresqllastdate & \postgresqlchanges &\postgresqlTrain&\postgresqlTest&\postgresqlexpbr & 7\\ \hline
+Xorg            & C     & \xorgloc & \xorgfirstdate & \xorglastdate & \xorgchanges&\xorgTrain&\xorgTest &\xorgexpbr& 6 \\ \hline
+JDT             & Java  & \eclipseloc & \eclipsefirstdate & \eclipselastdate & \eclipsechanges&\eclipseTrain&\eclipseTest &\eclipseexpbr & 6\\ \hline
+Lucene          & Java  & \luceneloc & \lucenefirstdate & \lucenelastdate & \lucenechanges&\luceneTrain&\luceneTest &\luceneexpbr & 8\\ \hline
+Jackrabbit      & Java  & \jackrabbitloc & \jackrabbitfirstdate & \jackrabbitlastdate & \jackrabbitchanges&\jackrabbitTrain&\jackrabbitTest &\jackrabbitexpbr & 10\\ \hline
+\end{tabular}
+\label{tab:changeProject}
+\end{table*}
+
+This dataset is collected from five open-source projects, i.e., 
+PostgreSQL, Xorg, Jdt (from Eclipse), Lucene, and Jackrabbit. 
+They are large and typical open source projects covering operating system,
+database management system. 
+These projects have enough change history to build and evaluate
+change-level defect prediction models.  
+Table~\ref{tab:changeProject} shows the evaluated 
+projects for change-level defect prediction. 
+Each project have more multiple runs, each run contains a training dataset and a test dataset, 
+which are collected during different time periods.   
+For example, PostgreSQL has 7 runs, you can build and train you model on each of the 7 runs, 
+and use the average performance to evaluate your prediction models. 
+The LOC and the number of changes in 
+Table~\ref{tab:changeProject} include only 
+source code (C and Java) files\footnote{We include files with these extensions: 
+.java, .c, .cpp, .cc, .cp, .cxx, .c++, .h, .hpp, .hh, .hp, .hxx and .h++.} and their changes. 
+
+Each folder of each project contains both the training and test datasets. 
+Each change has an unique change id and the label (buggy or clean). 
+We have already collected the source code for each change, which is stored in \textbf{patch.zip}. 
+
+\subsection*{How to Collect Features}
+\label{sec:features}
+
+\textbf{Bag-of-Words:} 
+Take the first change in the training data of folder 0 from Lucene, i.e., \textbf{9007} as an example. 
+The corresponding source code of this change is \textbf{lucene-9007.patch} in \textbf{/proj-skeleton/data/patch.zip}.
+
+\begin{lstlisting}[language=Java]
+diff --git a/solr/src/java/org/apache/solr/handler/component/QueryComponent.java b/solr/src/java/org/apache/solr/handler/component/QueryComponent.java
+index 0415f29..96f3893 100644
+--- a/solr/src/java/org/apache/solr/handler/component/QueryComponent.java
++++ b/solr/src/java/org/apache/solr/handler/component/QueryComponent.java
+@@ -217,14 +217,8 @@ public class QueryComponent extends SearchComponent
+           for (String groupByStr : funcs) {
+             QParser parser = QParser.getParser(groupByStr, "func", rb.req);
+             Query q = parser.getQuery();
+-            SolrIndexSearcher.GroupCommandFunc gc;
+-            if (groupSort != null) {
+-              SolrIndexSearcher.GroupSortCommand gcSort = new SolrIndexSearcher.GroupSortCommand();
+-              gcSort.sort = groupSort;
+-              gc = gcSort;
+-            } else {
+-              gc =  new SolrIndexSearcher.GroupCommandFunc();
+-            }
++            SolrIndexSearcher.GroupCommandFunc gc = new SolrIndexSearcher.GroupCommandFunc();
++            gc.groupSort = groupSort;
+ 
+             if (q instanceof FunctionQuery) {
+               gc.groupBy = ((FunctionQuery)q).getValueSource();
+\end{lstlisting}
+
+You can collect the \textbf{Bag-of-Words} features for each change by using the code of each change we provided. 
+Specifically, you need first to tokenize each change by filtering unnecessary symbols, 
+then collect all the frequent tokens (e.g., the frequency is larger than 3) from all the changes from a folder 
+(both the training and test datasets). 
+Finally, building the bag-of-words model for changes. 
+
+Useful information about the \textbf{Bag-of-Words} model can be found here:
+
+\url{https://en.wikipedia.org/wiki/Bag-of-words_model}
+
+\textbf{Code Complexity:}
+To collect the code complexity of a change, you need the file versions before and after a change. 
+You can find the the commit id of each change in folder \textbf{/proj-skeleton/data}. 
+For example, \textbf{lucene\_commit\_change.csv} contains the commit id of each change id from project lucene.  
+Taking the \textbf{9007} as an example, you could obtain the commit that made this change, 
+i.e., \textbf{9535bb795f6d1ec4c475a5d35532f3c7951101da}.
+
+\texttt{
+9007,9535bb795f6d1ec4c475a5d35532f3c7951101da, solr/.../QueryComponent.java}
+
+With the commit id, you could obtain the file versions before and after a change (e.g., \textbf{9007}). 
+After that, you could use Understand (available on ecelinux machines) to collect these code metrics.
+
+\textbf{Characteristic Vector:}
+The process of collecting this type of features is similar to that of \textbf{Code Complexity}. 
+The only difference is that after obtaining the file versions before and after a change (e.g., \textbf{9007}), 
+you need to apply Deckard.
+
+\end{document}
