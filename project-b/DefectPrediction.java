@@ -130,9 +130,9 @@ public class DefectPrediction {
   public void write2File() throws Exception{
      writer = new FileWriter(this.resultPath, true);
      PrintWriter out = new PrintWriter(writer);
-       out.println(this.project+","+this.TruthPositive+","+
-             this.TrueNegative+","+this.FalsePositive+","+this.FalseNegative);
-       out.flush();
+     out.println(this.project+","+this.TruthPositive+","+
+                 this.TrueNegative+","+this.FalsePositive+","+this.FalseNegative);
+     out.flush();
   }
 
   public ArrayList<InstancesResult> getInstances() {
