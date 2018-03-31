@@ -38,3 +38,8 @@ hs_err_pid*
 
 # stuff
 .DS_Store
+jackrabbit/
+jdt/
+lucene/
+postgresql/
+xorg/
