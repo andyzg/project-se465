@@ -2,7 +2,7 @@
 export CLASSPATH=.:../../jars/weka.jar:
 
 # compile sources and
-javac change/clean/*.java
+javac *.java
 
 # run sample code
-java change.clean.DefectPrediction
+java DefectPrediction
