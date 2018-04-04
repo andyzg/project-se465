@@ -1,5 +1,3 @@
-package proj.partI;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -20,7 +18,7 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
 import weka.filters.unsupervised.instance.RemoveWithValues;
 
-public class DefectPrediction {
+public class PartI {
   public String TrainingPath;
   public String TestingPath;
   public String project;
@@ -30,7 +28,7 @@ public class DefectPrediction {
   public Instances TrainingData;
   public Instances TestingData ;
 
-  public DefectPrediction(String project, String trainingPath, String testingPath) {
+  public PartI(String project, String trainingPath, String testingPath) {
     super();
     TrainingPath = trainingPath;
     TestingPath = testingPath;
@@ -66,15 +64,15 @@ public class DefectPrediction {
     eval.evaluateModel(cls, TestingData);
   }
 
-  public getPrecision() {
+  public double getPrecision() {
     return eval.precision(1);
   }
 
-  public getRecall() {
+  public double getRecall() {
     return eval.recall(1);
   }
 
-  public getF1() {
+  public double getF1() {
     return eval.fMeasure(1);
   }
 
@@ -101,7 +99,7 @@ public class DefectPrediction {
         String TrainingPath = "/home/a45zhang/project-se465/project-b/data/"+projectname+"/"+fold+"/train.arff";
         String TestingPath = "/home/a45zhang/project-se465/project-b/data/"+projectname+"/"+fold+"/test.arff";
 
-        DefectPrediction model = new DefectPrediction(projectname, TrainingPath, TestingPath);
+        PartI model = new PartI(projectname, TrainingPath, TestingPath);
         model.loadData();
         model.run();
         

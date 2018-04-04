@@ -1,8 +1,5 @@
-# get the correct classpath
-export CLASSPATH=.:../../jars/weka.jar:
-
 # compile sources and
-javac *.java
+javac -cp "weka.jar" *.java
 
 # run sample code
-java DefectPrediction
+java -cp ".:weka.jar" PartI
