@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
-import weka.classifiers.trees.ADTree;
+import weka.classifiers.bayes.NaiveBayes;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
@@ -48,20 +48,19 @@ public class PartI {
   }
 
   public void run() throws Exception{
-    String[] option = new String[4];
-    //-3(all), -2(weight), -1(z_pure), >=0 seed for random walk
-    option[0] = "-B";
-    option[1] = "20";
-    option[2] = "-E";
-    option[3] = "-3";
-    ADTree tree = new ADTree();
+    Classifier model = new NaiveBayes();
 
-    tree.setOptions(option);
+    // String[] option = new String[4];
+    // //-3(all), -2(weight), -1(z_pure), >=0 seed for random walk
+    // option[0] = "-B";
+    // option[1] = "20";
+    // option[2] = "-E";
+    // option[3] = "-3";
+    // tree.setOptions(option);
 
-    Classifier cls = tree;
-    cls.buildClassifier(TrainingData);
+    model.buildClassifier(TrainingData);
     eval = new Evaluation(TrainingData);
-    eval.evaluateModel(cls, TestingData);
+    eval.evaluateModel(model, TestingData);
   }
 
   public double getPrecision() {
@@ -89,7 +88,7 @@ public class PartI {
       int num = entry.getValue();
 
       System.out.println("Experiment Project:  " + projectname);
-      System.out.println("Algorithm:  ADTree");
+      System.out.println("Algorithm: Naive Bayes");
 
       double preTotal = 0;
       double recTotal = 0;
@@ -111,6 +110,7 @@ public class PartI {
       System.out.println("Precision:  " + preTotal/num);
       System.out.println("Recall:  " + recTotal/num);
       System.out.println("F1:  " + f1Total/num);
+      System.out.println();
     }
   }
 }
