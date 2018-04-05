@@ -96,8 +96,8 @@ public class PartI {
       double f1Total = 0;
       
       for (int fold=0;fold<num; fold++) {
-        String TrainingPath = "/home/a45zhang/project-se465/project-b/data/"+projectname+"/"+fold+"/train.arff";
-        String TestingPath = "/home/a45zhang/project-se465/project-b/data/"+projectname+"/"+fold+"/test.arff";
+        String TrainingPath = "./data/"+projectname+"/"+fold+"/train.arff";
+        String TestingPath = "./data/"+projectname+"/"+fold+"/test.arff";
 
         PartI model = new PartI(projectname, TrainingPath, TestingPath);
         model.loadData();
@@ -106,8 +106,6 @@ public class PartI {
         preTotal += model.getPrecision();
         recTotal += model.getRecall();
         f1Total += model.getF1();
-
-
       }
       
       System.out.println("Precision:  " + preTotal/num);
